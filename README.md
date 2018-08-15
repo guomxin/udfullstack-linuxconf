@@ -15,6 +15,16 @@ Let me illustrate the reason why the port is not 80. The server in above section
 - pip3 install flask packaging oauth2client passlib flask-httpauth
 - pip3 install sqlalchemy flask-sqlalchemy psycopg2-binary requests
 
+# Give grader sudo permission
+- Add a file `grader` to `/etc/sudoers.d` whose content is
+<code>
+grader ALL=(ALL) NOPASSWD:ALL
+</code>
+
+# Change ssh port
+- Open `/etc/ssh/sshd_config`
+- change Port 22 to Port 2200
+
 # Apache configuration
 The code of flask application is located in directory `/var/www/udfullstack-itemcatalog`.
 - Create the site's configuration file 'itemcatalog.conf' under `/etc/apache2/sites-enabled`
@@ -35,6 +45,13 @@ The code of flask application is located in directory `/var/www/udfullstack-item
   &lt;/VirtualHost&gt;
 </pre>
 - sudo apachectl restart
+
+# Firewall configuration
+- sudo ufw default deny incoming
+- sudo ufw default allow outgoing
+- sudo ufw allow 2200/tcp
+- sudo ufw allow http
+- sudo ufw allow ntp
 
 # Postgresql configuration
 sudo -u postgres psql
