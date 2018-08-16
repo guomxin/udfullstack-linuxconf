@@ -25,7 +25,38 @@ grader ALL=(ALL) NOPASSWD:ALL
 - Open `/etc/ssh/sshd_config`
 - change Port 22 to Port 2200
 
-# Apache configuration
+# Firewall configuration
+- sudo ufw default deny incoming
+- sudo ufw default allow outgoing
+- sudo ufw allow 2200/tcp
+- sudo ufw allow http
+- sudo ufw allow ntp
+
+# Postgresql configuration
+sudo -u postgres psql
+- create user catalog with password '111111';
+- create database catalogdb;
+- grant all privileges on database catalogdb to catalog;
+
+# Install web application
+## Intall git
+`sudo apt-get install git`
+## Clone the resposity of catalog app
+```
+cd /var/www
+sudo git clone https://github.com/guomxin/udfullstack-itemcatalog.git
+```
+## Add itemcatalog.wsgi file
+```python
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+
+sys.path.insert(0, '/var/www/udfullstack-itemcatalog')
+from application import app as application
+application.secret_key = "your_secret_key"
+```
+## Apache configuration
 The code of flask application is located in directory `/var/www/udfullstack-itemcatalog`.
 - Create the site's configuration file 'itemcatalog.conf' under `/etc/apache2/sites-enabled`
 <pre>
@@ -45,16 +76,3 @@ The code of flask application is located in directory `/var/www/udfullstack-item
   &lt;/VirtualHost&gt;
 </pre>
 - sudo apachectl restart
-
-# Firewall configuration
-- sudo ufw default deny incoming
-- sudo ufw default allow outgoing
-- sudo ufw allow 2200/tcp
-- sudo ufw allow http
-- sudo ufw allow ntp
-
-# Postgresql configuration
-sudo -u postgres psql
-- create user catalog with password '111111';
-- create database catalogdb;
-- grant all privileges on database catalogdb to catalog;
