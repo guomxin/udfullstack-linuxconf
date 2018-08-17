@@ -2,8 +2,12 @@
 Domain: guomxin.imwork.net, port: 2200
 
 # Hosted application
-Please visit [website](http://guomxin.imwork.net:8880).<br>
-Let me illustrate the reason why the port is not 80. The server in above section is a virtual machine on my desktop whose ip is 192.168.0.190 which can't be accessed on the internet. I have hosted the site on port 80 on the virtual machine. My router's domain is guomxin.imwork.net. I have mapped the router port 8880 -> server port 80 and router port 2200 -> server 2200. So we can access the virtual machine from internet.
+Please visit [website](http://guomxin.imwork.net:8880).  
+Let me illustrate the reason why the port is not 80. The server in above section is a virtual machine  
+on my desktop whose ip is 192.168.0.190 which can't be accessed on the internet. I have hosted the site  
+on port 80 on the virtual machine. My router's domain is guomxin.imwork.net. I have mapped the router  
+port 8880 -> server port 80 and router port 2200 -> server 2200. So we can access the virtual machine  
+from internet.
 
 # Software/package installed
 - sudo apt-get update
@@ -17,9 +21,9 @@ Let me illustrate the reason why the port is not 80. The server in above section
 
 # Give grader sudo permission
 - Add a file `grader` to `/etc/sudoers.d` whose content is
-<code>
+```
 grader ALL=(ALL) NOPASSWD:ALL
-</code>
+```
 
 # Change ssh port
 - Open `/etc/ssh/sshd_config`
@@ -76,3 +80,8 @@ The code of flask application is located in directory `/var/www/udfullstack-item
   &lt;/VirtualHost&gt;
 </pre>
 - sudo apachectl restart
+
+# References
+- [How To Install and Use PostgreSQL on Ubuntu ](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04)
+- [UFW](https://help.ubuntu.com/community/UFW)
+- [How To Deploy a Flask Application on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
